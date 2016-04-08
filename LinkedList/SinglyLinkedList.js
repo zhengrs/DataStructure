@@ -8,7 +8,7 @@
 		this.next = null;
 	};
 
-	var linkedListPrototype = {
+	var linkedListPrototype = { 
 
 		//---------------- basic operations ----------------
 		isEmpty : function(){
