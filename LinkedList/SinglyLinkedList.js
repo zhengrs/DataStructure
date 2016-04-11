@@ -49,38 +49,34 @@
 		}, 
 
 		insert : function(data, pos){	// pos is from 0 - length of list
-			if(pos<0) return false;
+			var preNode, curPos, newNode = new LinkedNode(data);
 
-			var new_node = new LinkedNode(data),
-					cur_pos,
-					node,
-					pre_node;
-
-
-			if( this.isEmpty() || pos === 0 ){
-				this.prepend(data);
+			if( pos === 0 ){
+				newNode.next = this.head;
+				this.head = newNode;
+				return true;
+			}
+	
+			if( !this.head ){
+				return false;
 			}
 			else{
-				pre_node = this.head;  // not null
-				node = pre_node.next;
-				cur_pos = 1; // node is reference to second node in the list 
-
-				while( cur_pos < pos && node ){
-					pre_node = node;
-					node = node.next;
-					cur_pos++;
+				preNode = this.head;
+				curPos = 1;
+	
+				while( preNode && curPos < pos ){
+					preNode = preNode.next;
+					curPos++;
 				}
-
-				if( cur_pos === pos ){
-					new_node.next = node;
-					pre_node.next = new_node;
-
+	
+				if( curPos === pos && preNode ){
+					newNode = new LinkedNode(data);
+					newNode.next = preNode.next;
+					preNode.next = newNode;
+					return true;
 				}
-				else{
-					return false;
-				}
-			}	
-			return true;
+				return false;
+			}
 		},
 
 		remove : function(pos){	// pos is from 0 - length-1 of list
