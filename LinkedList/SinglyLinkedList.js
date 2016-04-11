@@ -80,40 +80,29 @@
 		},
 
 		remove : function(pos){	// pos is from 0 - length-1 of list
-			if(pos<0) return null;
+			var removedNode, preNode, curPos;
 
-			var pre_node,
-					node,
-					cur_pos,
-					remove_node;
-
-			if( this.isEmpty() ){
-				return null;
-			}
-			else if( pos === 0 ){
-				remove_node = this.head;
-				this.head = this.head.next;
-				return remove_node;
-			}
-			else{
-				pre_node = this.head;
-				node = this.head.next;
-				cur_pos = 1;
-
-				while( node && cur_pos < pos ){
-					pre_node = node;
-					node = node.next;
-					cur_pos ++;
-				}
-
-				if( node ){
-					remove_node = node;
-					pre_node.next = node.next;
-					return remove_node;
-				}
-				else{
+			if( pos === 0 ){
+				if( !this.head ){
 					return null;
 				}
+				removedNode = this.head;
+				this.head = this.head.next;
+				return removedNode;
+			}
+			else{
+				preNode = this.head;
+				curPos = 1;
+				while( preNode.next && curPos<pos ){
+					preNode = preNode.next;
+					curPos++;
+				}
+				if( preNode.next && curPos === pos ){
+					removedNode = preNode.next;
+					preNode.next = preNode.next.next;
+					return removedNode;
+				}
+				return null;
 			}
 		},
 
