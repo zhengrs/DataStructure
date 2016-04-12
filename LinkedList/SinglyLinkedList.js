@@ -53,6 +53,8 @@
 				node, // node points pos-1 position, pos>0
 				i;
 
+			if( pos<0 )	return;
+	
 			if( pos === 0 ){
 				// equals to this.prepend(val)
 				newNode.next = this.head;
