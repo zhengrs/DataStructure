@@ -49,33 +49,26 @@
 		}, 
 
 		insert : function(data, pos){	// pos is from 0 - length of list
-			var preNode, curPos, newNode = new LinkedNode(data);
+			var newNode = new LinkedNode(val),
+				node, // node points pos-1 position, pos>0
+				i;
 
 			if( pos === 0 ){
+				// equals to this.prepend(val)
 				newNode.next = this.head;
 				this.head = newNode;
-				return true;
-			}
-	
-			if( !this.head ){
-				return false;
 			}
 			else{
-				preNode = this.head;
-				curPos = 1;
-	
-				while( preNode && curPos < pos ){
-					preNode = preNode.next;
-					curPos++;
+				node = this.head;
+				i = 0;
+				while( node && i<pos-1 ){
+					node = node.next;
+					i++;
 				}
-	
-				if( curPos === pos && preNode ){
-					newNode = new LinkedNode(data);
-					newNode.next = preNode.next;
-					preNode.next = newNode;
-					return true;
+				if( node ){
+					newNode.next = node.next;
+					node.next = newNode;
 				}
-				return false;
 			}
 		},
 
