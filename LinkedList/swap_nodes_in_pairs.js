@@ -1,56 +1,31 @@
+
 (function(){
 
-	var LinkedNode = function(val){
-		this.data = val;
-		this.next = null;
-	};
+	var swapNodesInPairs = function( head ){
+		if( !head || !head.next )	return head;
 
-	var swapPairs = function( head ){
+		var pre,
+				a,
+				b;
 
-		if( !head )	return head;
+		a = head;
+		b = head.next;
+		
+		a.next = b.next;
+		b.next = a;
+		head = b;
 
-		var pNode = head,	a, b; 	// swap a and b every time
+		pre = a;
 
-		if( head && head.next ){
-			a = head.next;
-			head.next = a.next;
-			a.next = head;
-			head = a;
-			pNode = head.next;
-		}
-		else{
-			return head;
-		}
-
-		while( pNode && (a=pNode.next) && (b=a.next) ){
-			// swap a and b
-			pNode.next = b;
+		while( pre && (a=pre.next) && (b=a.next) ){
 			a.next = b.next;
 			b.next = a;
+			pre.next = b;
 
-			pNode = a; // tricky here 
+			pre = a;
 		}
 
 		return head;
 	};
-
-	(function(){
-
-		var l = new LinkedList();
-		l.append(1);
-		l.append(2);
-		l.append(3);
-		l.append(4);
-		l.append(5);
-		l.append(6);
-		l.append(7);
-		l.append(8);
-		l.append(9);
-		l.append(10);
-
-		var h = swapPairs(l.head);
-		print(h);
-
-	})();
 
 })();
