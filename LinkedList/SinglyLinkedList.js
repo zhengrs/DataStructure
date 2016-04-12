@@ -75,30 +75,32 @@
 		},
 
 		remove : function(pos){	// pos is from 0 - length-1 of list
-			var removedNode, preNode, curPos;
+			var node,
+				removeNode,
+				i;
 
+			if( pos<0 || !this.head )	return null;
+	
 			if( pos === 0 ){
-				if( !this.head ){
-					return null;
-				}
-				removedNode = this.head;
+				removeNode = this.head;
 				this.head = this.head.next;
-				return removedNode;
+				return removeNode;
 			}
-			else{
-				preNode = this.head;
-				curPos = 1;
-				while( preNode.next && curPos<pos ){
-					preNode = preNode.next;
-					curPos++;
-				}
-				if( preNode.next && curPos === pos ){
-					removedNode = preNode.next;
-					preNode.next = preNode.next.next;
-					return removedNode;
-				}
-				return null;
+	
+			node = this.head;
+			i = 0;
+			while( node && i<pos-1 ){
+				node = node.next;
+				i++;
 			}
+	
+			if( node && node.next ){
+				removeNode = node.next;
+				node.next = node.next.next;
+				return removeNode;
+			}
+	
+			return null;
 		},
 
 		//---------------extra operations ----------------
