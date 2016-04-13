@@ -7,55 +7,35 @@
 
 
 	var rotateRight = function( head, k ){
-		if( !head || k<0 ) return head;
-
+		if( !head || !head.next || k<0 ) return head;
+	
 		var n,
 				node,
-				m,
-				pre_node,
-				counter;
-
-		n = 1;
-		node = head; // not null
-		while( node.next ){
-			n++;
-			node = node.next;
-		}
-
-		node.next = head; // connect end to begin
-
-		k = k%n;	// k's range [0,n-1]
-		m = n-k;  // m is the index of new head , zero-based . m's range[1,n]
-
-		if( m == 0 )	return head;
-
-		pre_node = null;
+				i,
+				m;
+	
 		node = head;
-		counter = 0;
-
-		while( node && counter<m){
-			pre_node = node;
+		n = 1;
+		while( node.next ){
 			node = node.next;
-			counter++;
+			n++;
 		}
-
-		pre_node.next = null;
-		return node;
-
+	
+		node.next = head;
+	
+		m = n - k%n; // m's range : [ 1, n ]
+	
+		node = head;
+		i = 0;
+		while( i<m-1 ){
+			node = node.next;
+			i++;
+		}
+	
+		head = node.next;
+		node.next = null;
+	
+		return head;
 	};
-
-	(function(){
-
-		var l = new LinkedList();
-		l.append(1);
-		l.append(2);
-		l.append(3);
-		l.append(4);
-		l.append(5);
-
-		var h = rotateRight(l.head, 1928376);
-		print(h);
-
-	})();
-
+	
 })();
